@@ -1,18 +1,48 @@
 <?php
-require './vendor/autoload.php';
-/* use \Psr\Http\Message\ServerRequestInterface as Request;
+
+use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
- 
- 
-$app = new \Slim\App;
-$app->get('/postagens/{name}', function (Request $request, Response $response, array $args) {
-    $name = $args['name'];
-    $response->getBody()->write("Hello, $name");
-    
-    return $response;
-}); */
+
+
+require './vendor/autoload.php';
 
 $app = new \Slim\App;
+
+$app->get('/postagens', function(Request $request, Response $response){
+    
+    // Escreve no corpo da resposta utilizando o padrão PSR7
+    $response->getBody()->write("Listagem de postagens");
+
+    return $response;
+
+});
+
+$app->get('/usuarios', function(Request $request, Response $response){
+    
+    // Escreve no corpo da resposta utilizando o padrão PSR7
+    $response->getBody()->write("Listagem de postagens");
+
+    return $response;
+
+});
+
+
+
+
+
+$app->run();
+// use \Psr\Http\Message\ServerRequestInterface as Request;
+// use \Psr\Http\Message\ResponseInterface as Response;
+ 
+ 
+// $app->get('/postagens/{name}', function (Request $request, Response $response, array $args) {
+//     $name = $args['name'];
+//     $response->getBody()->write("Hello, $name");
+    
+//     return $response;
+// });
+
+/* $app = new \Slim\App;
 
 $app->get('/postagens2', function($request, $response){
     $id = $request->getAttribute('id');
@@ -51,7 +81,7 @@ $app->get('/meusite', function($request, $response){
 });
 
 
-/* Agrupar Rotas */
+//  Agrupar Rotas 
 
 $app->group('/v5', function(){
     $this->get('/usuarios', function($request, $response){
@@ -61,7 +91,7 @@ $app->group('/v5', function(){
     $this->get('/postagens', function($request, $response){
         echo "Listagem de postagens";
     });
-});
+}); */
 
 
 
@@ -69,4 +99,3 @@ $app->group('/v5', function(){
 
 
  
-$app->run();
