@@ -14,12 +14,14 @@ $app->get('/postagens/{name}', function (Request $request, Response $response, a
 
 $app = new \Slim\App;
 
-$app->get('/postagens', function(){
-    echo "Listagem de postagens";
+$app->get('/postagens/{id}', function($request, $response){
+    $id = $request->getAttribute('id');
+    echo "Listagem de postagens".$id;
 });
 
-$app->get('/usuarios', function(){
-    echo "Listagem de usuarios";
+$app->get('/usuarios/{id}', function($request, $response){
+    $id = $request->getAttribute('id');
+    echo "Listagem de usuarios: ".$id;
 });
 
  
