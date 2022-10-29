@@ -8,21 +8,32 @@ require './vendor/autoload.php';
 
 $app = new \Slim\App;
 
-$app->get('/postagens', function(Request $request, Response $response){
+/* $app->get('/postagens', function(Request $request, Response $response){
     
-    // Escreve no corpo da resposta utilizando o padrão PSR7
-    $response->getBody()->write("Listagem de postagens");
+    //Recupera post 
+    $post = $request->getParsedBody();
 
-    return $response;
+    return $post;
+
+}); */
+
+$app->put('/usuarios/atualiza', function(Request $request, Response $response){
+    
+    //atauliza no bd com UPDATE 
+    $post = $request->getParsedBody();
+    $id = $post['id'];
+    $nome = $post['nome'];
+    $email = $post['email'];
+
+    return $response->getBody()->write( "Sucesso ao atualizar: ". $id);
 
 });
 
-$app->get('/usuarios', function(Request $request, Response $response){
+$app->delete('/usuarios/remove/{id}', function(Request $request, Response $response){
     
-    // Escreve no corpo da resposta utilizando o padrão PSR7
-    $response->getBody()->write("Listagem de postagens");
-
-    return $response;
+    $id = $request->getAttribute('id');
+    //deletar do bd com DELETE
+    return $response->getBody()->write( "Sucesso ao deletar: ". $id);
 
 });
 
