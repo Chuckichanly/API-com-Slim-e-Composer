@@ -8,6 +8,33 @@ require './vendor/autoload.php';
 
 $app = new \Slim\App;
 
+/* Container dependecy injection */
+class Servico{
+}
+$servico = new Servico();
+    
+/* Container Pimple */
+$container = $app->getContainer();
+$container['servico'] = function() { 
+    return new Servico();
+};
+
+$app->get('/servico', function(Request $request, Response $response) /* use ($servico) */ {
+
+    $servico = $this->get('servico');
+    var_dump($servico);
+
+});
+
+/* Controllers como serviço */
+$app->get('/usuario', '\MyApp\controllers\Home:index' );
+
+
+
+
+
+$app->run();
+
 /* $app->get('/postagens', function(Request $request, Response $response){
     
     //Recupera post 
@@ -17,7 +44,7 @@ $app = new \Slim\App;
 
 }); */
 
-$app->put('/usuarios/atualiza', function(Request $request, Response $response){
+/* $app->put('/usuarios/atualiza', function(Request $request, Response $response){
     
     //atauliza no bd com UPDATE 
     $post = $request->getParsedBody();
@@ -35,13 +62,12 @@ $app->delete('/usuarios/remove/{id}', function(Request $request, Response $respo
     //deletar do bd com DELETE
     return $response->getBody()->write( "Sucesso ao deletar: ". $id);
 
-});
+}); */
 
 
 
 
 
-$app->run();
 // use \Psr\Http\Message\ServerRequestInterface as Request;
 // use \Psr\Http\Message\ResponseInterface as Response;
  
