@@ -38,15 +38,42 @@ $container['db'] = function(){
 
 $app->get('/usuarios', function(Request $request, Response $response){
 
+//Criando BD e columns
     $db = $this->get('db');
-    $db->schema()->dropIfExists('usuarios');
+    /*$db->schema()->dropIfExists('usuarios');
     $db->schema()->create('usuarios', function($table){
         
         $table->increments('id');
         $table->string('nome');
         $table->string('email');
         $table->timestamps();
-    });
+    });*/
+
+//Inserir
+    /* $db->table('usuarios')->insert([
+        'nome' => 'Papadopoulos',
+        'email' => 'Jorge@gmail.com',
+    ]); */
+
+//Atualizar
+    /* $db->table('usuarios')
+                ->where('id',1)
+                ->update([
+                    'nome' => 'El Pepeluali',
+                ]); */
+
+//Deletar
+    /* $db->table('usuarios')
+                ->where('id',1)
+                ->delete(); */
+
+//Listar
+    $usuarios = $db->table('usuarios')->get();
+    foreach($usuarios as $usuario){
+        echo $usuario->nome . '<br>';
+    }
+
+
 
 } );
     
