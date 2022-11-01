@@ -6,42 +6,81 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require './vendor/autoload.php';
 
-$app = new \Slim\App;/* ([
+$app = new \Slim\App;([
     'settings' => [
         'displayErrorDetails' => true
         ]
-    ]); */
+    ]);
+    
+// Tipos de respostas cabeçalho: texto, json, xml
+    //Texto
+$app->get('/header', function(Request $request, Response $response){
 
-/* Container dependecy injection */
+    $response->write('Esse é um retorno header');
+    return $response->withHeader('allow', 'PUT')
+    ->withAddedHeader('Content-Length',30);
+
+});
+
+    //JSON
+$app->get('/json', function(Request $request, Response $response){
+
+    return $response->withJson([
+        "nome" => "Jamilton Damasceno",
+        "endereco" => "Rua KD 23"
+    ]);
+    
+});
+
+    //XML
+$app->get('/xml', function(Request $request, Response $response){
+
+    $xml = file_get_contents('arquivo');
+    $response->write($xml);
+
+    return $response->withHeader('Content-Type', 'application/xml');
+
+});
+    
+$app->run();
+
+
+
+
+
+
+    /* 
+// Container dependecy injection
 class Servico{
 }
 $servico = new Servico();
     
-/* Container Pimple */
+// Container Pimple
 $container = $app->getContainer();
 $container['servico'] = function() { 
     return new Servico();
 };
 
-$app->get('/servico', function(Request $request, Response $response) /* use ($servico) */ {
+$app->get('/servico', function(Request $request, Response $response) 
+// use ($servico) 
+{
     
     $servico = $this->get('servico');
     var_dump($servico);
 
 });
 
-/* Controllers como serviço */
+// Controllers como serviço
 $container = $app->getContainer();
 $container['Home'] = function() { 
     return new MyApp\controllers\Home( new MyApp\View);
 };
 $app->get('/usuario', 'Home:index' );
+ */
 
 
 
 
-
-$app->run();
 
 /* $app->get('/postagens', function(Request $request, Response $response){
     
