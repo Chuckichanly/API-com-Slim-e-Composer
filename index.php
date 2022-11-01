@@ -6,7 +6,11 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require './vendor/autoload.php';
 
-$app = new \Slim\App;
+$app = new \Slim\App;/* ([
+    'settings' => [
+        'displayErrorDetails' => true
+        ]
+    ]); */
 
 /* Container dependecy injection */
 class Servico{
@@ -20,14 +24,18 @@ $container['servico'] = function() {
 };
 
 $app->get('/servico', function(Request $request, Response $response) /* use ($servico) */ {
-
+    
     $servico = $this->get('servico');
     var_dump($servico);
 
 });
 
 /* Controllers como serviço */
-$app->get('/usuario', '\MyApp\controllers\Home:index' );
+$container = $app->getContainer();
+$container['Home'] = function() { 
+    return new MyApp\controllers\Home( new MyApp\View);
+};
+$app->get('/usuario', 'Home:index' );
 
 
 
